@@ -98,12 +98,6 @@ int lock(int ldes, int type, int priority)
 		}
 		
 		if(nr == 0 && nw != 0){ // this is a WRITE lock, you wait!
-			//proctab[currpid].pstate = PRLOCK;
-			//proctab[currpid].plockret = OK;
-			//insert(currpid, lptr -> lqhead, priority);
-			//q[currpid].qtype = type;
-			//q[currpid].qtime = clktime;
-			
 			if(lpreempt(lock, type, priority, 1) == 1){
 				resched();
 				restore(ps);

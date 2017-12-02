@@ -10,57 +10,70 @@ int find_index(int lock_index)
 {
 	struct lentry *lptr;
     int curr;
-	int temp;
+	int index;
 	int wait_diff;
-	lptr = &locktab[lock_index];
-	curr = q[lptr->lqhead].qnext;
+	//locktab[lock_index];
+	curr = q[locktab[lock_index].lqhead].qnext;
 
-    if(curr == lptr -> lqtail){
+    if(curr == locktab[lock_index].lqtail){
 		// the queue is actually empty
 		return SYSERR;
 	}
 	
-	int item = q[lptr -> lqtail].qprev;
-	int best = q[lptr -> lqtail].qprev;
-
-	item = q[best].qprev; 
-
-	while(q[item].qprev != lptr -> lqhead)
+	/////////////////////////////////////////////////////////////////
+	//     Now find the index with highest prority     //////////////
+	/////////////////////////////////////////////////////////////////
+	int last = q[locktab[lock_index].lqtail].qprev; // last
+	int oneb4last = q[last].qprev; // one before last
+	
+	if(q[last].qprev == locktab[lock_index].lqhead){
+		// means this queue only has one element
+		// so just return this element
+		return last;
+	}
+	if(q[oneb4last].qprev == locktab[lock_index].lqhead){
+		// means this queue only has two elements
+		return last;
+	}
+	
+	// now, this queue has three or more elements
+	while(q[oneb4last].qprev != lptr -> lqhead)
 	{
-		item = q[item].qprev;
+		oneb4last = q[oneb4last].qprev;
 		
-		if(q[item].qkey < q[best].qkey) 
+		if(q[oneb4last].qkey < q[last].qkey) 
 		{
-			return best;
+			return last;
 		}
 
-		if(q[item].qkey == q[best].qkey)
+		if(q[oneb4last].qkey == q[last].qkey)
 		{
-			wait_diff = abs(q[best].qtime - q[item].qtime);
+			wait_diff = abs(q[last].qtime - q[oneb4last].qtime);
 			if(wait_diff < 1)
 			{
-				if((q[best].qtype == READ) && (q[item].qtype == WRITE))
+				if((q[last].qtype == READ) && (q[oneb4last].qtype == WRITE))
 				{
-					best = item;
+					last = oneb4last;
 				}
 				else
 				{
-					best = best;
+					last = last;
 				}
 			}
 
-			if(q[best].qtime > q[item].qtime) 
+			if(q[last].qtime > q[oneb4last].qtime) 
 			{
-				best = item;
+				last = oneb4last;
 			}
 
-			if(q[best].qtime < q[item].qtime) 
+			if(q[last].qtime < q[oneb4last].qtime) 
 			{
-				best = best;
+				last = last;
 			}
 		}
 	}
-	return best;
+	return last;
+	
 } 
 
 
