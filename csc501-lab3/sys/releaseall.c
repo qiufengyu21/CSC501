@@ -6,63 +6,61 @@
 #include <stdio.h>
 
 
-
-int find_prio(int lock_index)
+int find_index(int lock_index)
 {
 	struct lentry *lptr;
-    int best;
-	int item;
+    int curr;
+	int temp;
 	int wait_diff;
 	lptr = &locktab[lock_index];
-    item = q[lptr -> lqtail].qprev;
-    best = q[lptr -> lqtail].qprev;
+	curr = q[lptr->lqhead].qnext;
 
-        if(best == lptr -> lqhead) 
-			return -1; //null
+    if(curr == lptr -> lqtail){
+		// the queue is actually empty
+		return SYSERR;
+	}
+	
+	int item = q[lptr -> lqtail].qprev;
+	int best = q[lptr -> lqtail].qprev;
 
-		item = q[best].qprev; 
+	item = q[best].qprev; 
 
-        while(q[item].qprev != lptr -> lqhead)
-        	{
-        	
-            item = q[item].qprev;
-			
-            if(q[item].qkey < q[best].qkey) 
-				{
-				return best;
-            	}
-
-            if(q[item].qkey == q[best].qkey)
-                {
-                wait_diff = abs(q[best].qtime - q[item].qtime);
-
-                if(wait_diff < 1)
-                	{
-                	
-					if((q[best].qtype == READ) && (q[item].qtype == WRITE))
-						{
-						best = item;
-						}
+	while(q[item].qprev != lptr -> lqhead)
+	{
+		item = q[item].qprev;
 		
-                    else
-                    	{
-                    	best = best;
-                    	}
-                    
-                    }
+		if(q[item].qkey < q[best].qkey) 
+		{
+			return best;
+		}
 
-				if(q[best].qtime > q[item].qtime) 
-					{
+		if(q[item].qkey == q[best].qkey)
+		{
+			wait_diff = abs(q[best].qtime - q[item].qtime);
+			if(wait_diff < 1)
+			{
+				if((q[best].qtype == READ) && (q[item].qtype == WRITE))
+				{
 					best = item;
-					}
-
-				if(q[best].qtime < q[item].qtime) 
-					{
+				}
+				else
+				{
 					best = best;
-					}
-                }
-        	}
-        return best;
+				}
+			}
+
+			if(q[best].qtime > q[item].qtime) 
+			{
+				best = item;
+			}
+
+			if(q[best].qtime < q[item].qtime) 
+			{
+				best = best;
+			}
+		}
+	}
+	return best;
 } 
 
 
@@ -138,7 +136,7 @@ int release(int pid, int lock_value)
 		
 	if((lptr->nr == 0) && (lptr->nw == 0))
 		{
-		best = find_prio(lock);
+		best = find_index(lock);
 		while(best != -1)
 			{
 			if(q[best].qtype == READ)
@@ -147,7 +145,7 @@ int release(int pid, int lock_value)
 				proctab[best].owned[lock] ++;
 				dequeue(best);
 				ready(best, RESCHNO);
-				best = find_prio(lock);
+				best = find_index(lock);
 				
 				if((best != -1) && (q[best].qtype == WRITE))
 					{

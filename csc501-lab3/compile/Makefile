@@ -365,10 +365,10 @@ blkequ.o: ../sys/blkequ.c /usr/include/stdc-predef.h ../h/kernel.h \
  ../h/systypes.h ../h/conf.h ../h/mem.h
 chprio.o: ../sys/chprio.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/stdio.h
+ ../h/lock.h ../h/stdio.h
 clkinit.o: ../sys/clkinit.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/sleep.h ../h/i386.h \
- ../h/stdio.h ../h/q.h
+ ../h/stdio.h ../h/q.h ../h/lock.h
 close.o: ../sys/close.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/io.h
 conf.o: ../sys/conf.c /usr/include/stdc-predef.h ../h/conf.h
@@ -379,7 +379,7 @@ create.o: ../sys/create.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/sem.h ../h/io.h ../h/stdio.h
 evec.o: ../sys/evec.c /usr/include/stdc-predef.h ../h/conf.h ../h/i386.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/sem.h \
- ../h/tty.h ../h/q.h ../h/io.h ../h/stdio.h
+ ../h/tty.h ../h/q.h ../h/lock.h ../h/io.h ../h/stdio.h
 freebuf.o: ../sys/freebuf.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/mark.h ../h/bufpool.h \
  ../h/stdio.h
@@ -391,7 +391,7 @@ getbuf.o: ../sys/getbuf.c /usr/include/stdc-predef.h ../h/conf.h \
 getc.o: ../sys/getc.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/io.h
 getitem.o: ../sys/getitem.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h ../h/lock.h
 getmem.o: ../sys/getmem.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/stdio.h
 getpid.o: ../sys/getpid.c /usr/include/stdc-predef.h ../h/conf.h \
@@ -403,7 +403,7 @@ getstk.o: ../sys/getstk.c /usr/include/stdc-predef.h ../h/conf.h \
 gettime.o: ../sys/gettime.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/date.h
 gpq.o: ../sys/gpq.c /usr/include/stdc-predef.h ../h/conf.h ../h/kernel.h \
- ../h/systypes.h ../h/mem.h ../h/q.h ../h/stdio.h
+ ../h/systypes.h ../h/mem.h ../h/q.h ../h/lock.h ../h/stdio.h
 i386.o: ../sys/i386.c /usr/include/stdc-predef.h ../h/icu.h ../h/i386.h \
  ../h/kernel.h ../h/systypes.h ../h/conf.h ../h/mem.h ../h/stdio.h
 init.o: ../sys/init.c /usr/include/stdc-predef.h ../h/conf.h \
@@ -411,33 +411,34 @@ init.o: ../sys/init.c /usr/include/stdc-predef.h ../h/conf.h \
 initialize.o: ../sys/initialize.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/i386.h ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/mark.h \
  ../h/bufpool.h ../h/proc.h ../h/sem.h ../h/sleep.h ../h/tty.h ../h/q.h \
- ../h/io.h ../h/stdio.h ../h/lock.h
+ ../h/lock.h ../h/io.h ../h/stdio.h
 insert.o: ../sys/insert.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h ../h/lock.h
 insertd.o: ../sys/insertd.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h ../h/lock.h
 ioerr.o: ../sys/ioerr.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h
 ionull.o: ../sys/ionull.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h
 kill.o: ../sys/kill.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/sem.h \
- ../h/io.h ../h/q.h ../h/stdio.h ../h/lock.h
+ ../h/io.h ../h/q.h ../h/lock.h ../h/stdio.h
 kprintf.o: ../sys/kprintf.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/tty.h
 kputc.o: ../sys/kputc.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/tty.h
-lcreate.o: ../sys/lcreate.c /usr/include/stdc-predef.h ../h/kernel.h \
- ../h/systypes.h ../h/conf.h ../h/mem.h ../h/proc.h ../h/q.h ../h/lock.h \
- ../h/stdio.h
-ldelete.o: ../sys/ldelete.c /usr/include/stdc-predef.h ../h/kernel.h \
- ../h/systypes.h ../h/conf.h ../h/mem.h ../h/proc.h ../h/q.h ../h/lock.h \
- ../h/stdio.h
-linit.o: ../sys/linit.c /usr/include/stdc-predef.h ../h/kernel.h \
- ../h/systypes.h ../h/conf.h ../h/mem.h ../h/proc.h ../h/q.h ../h/lock.h
-lock.o: ../sys/lock.c /usr/include/stdc-predef.h ../h/kernel.h \
- ../h/systypes.h ../h/conf.h ../h/mem.h ../h/proc.h ../h/q.h ../h/lock.h \
- ../h/stdio.h ../h/sleep.h
+lcreate.o: ../sys/lcreate.c /usr/include/stdc-predef.h ../h/conf.h \
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/stdio.h
+ldelete.o: ../sys/ldelete.c /usr/include/stdc-predef.h ../h/conf.h \
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/stdio.h
+linit.o: ../sys/linit.c /usr/include/stdc-predef.h ../h/conf.h \
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/stdio.h
+lock.o: ../sys/lock.c /usr/include/stdc-predef.h ../h/conf.h \
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/stdio.h ../h/sleep.h
 main.o: ../sys/main.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/lock.h \
  ../h/stdio.h
@@ -447,7 +448,7 @@ mkpool.o: ../sys/mkpool.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/mark.h ../h/bufpool.h \
  ../h/stdio.h
 newqueue.o: ../sys/newqueue.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h ../h/lock.h
 open.o: ../sys/open.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/io.h
 panic.o: ../sys/panic.c /usr/include/stdc-predef.h ../h/conf.h \
@@ -460,33 +461,35 @@ poolinit.o: ../sys/poolinit.c /usr/include/stdc-predef.h ../h/conf.h \
 putc.o: ../sys/putc.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/io.h
 queue.o: ../sys/queue.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/q.h ../h/lock.h
 read.o: ../sys/read.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/io.h
 ready.o: ../sys/ready.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h
 receive.o: ../sys/receive.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/stdio.h
 recvclr.o: ../sys/recvclr.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/stdio.h
 recvtim.o: ../sys/recvtim.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/sleep.h ../h/stdio.h
-releaseall.o: ../sys/releaseall.c /usr/include/stdc-predef.h \
- ../h/kernel.h ../h/systypes.h ../h/conf.h ../h/mem.h ../h/proc.h \
- ../h/q.h ../h/lock.h ../h/stdio.h
+ ../h/lock.h ../h/sleep.h ../h/stdio.h
+releaseall.o: ../sys/releaseall.c /usr/include/stdc-predef.h ../h/conf.h \
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/stdio.h
 resched.o: ../sys/resched.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h
 resume.o: ../sys/resume.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/stdio.h
 scount.o: ../sys/scount.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/sem.h
 screate.o: ../sys/screate.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h ../h/sem.h \
- ../h/stdio.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/sem.h ../h/stdio.h
 sdelete.o: ../sys/sdelete.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h ../h/sem.h \
- ../h/stdio.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/sem.h ../h/stdio.h
 send.o: ../sys/send.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/stdio.h
 setdev.o: ../sys/setdev.c /usr/include/stdc-predef.h ../h/conf.h \
@@ -496,45 +499,45 @@ setnok.o: ../sys/setnok.c /usr/include/stdc-predef.h ../h/conf.h \
 shutdown.o: ../sys/shutdown.c /usr/include/stdc-predef.h ../h/kernel.h \
  ../h/systypes.h ../h/conf.h ../h/mem.h ../h/stdio.h
 signal.o: ../sys/signal.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h ../h/sem.h \
- ../h/stdio.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/sem.h ../h/stdio.h
 signaln.o: ../sys/signaln.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h ../h/sem.h \
- ../h/stdio.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/sem.h ../h/stdio.h
 sleep1000.o: ../sys/sleep1000.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/sleep.h ../h/stdio.h
+ ../h/lock.h ../h/sleep.h ../h/stdio.h
 sleep100.o: ../sys/sleep100.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/sleep.h ../h/stdio.h
+ ../h/lock.h ../h/sleep.h ../h/stdio.h
 sleep10.o: ../sys/sleep10.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/sleep.h ../h/stdio.h
+ ../h/lock.h ../h/sleep.h ../h/stdio.h
 sleep.o: ../sys/sleep.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/sleep.h ../h/stdio.h
+ ../h/lock.h ../h/sleep.h ../h/stdio.h
 sreset.o: ../sys/sreset.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h ../h/sem.h \
- ../h/stdio.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/sem.h ../h/stdio.h
 ssclock.o: ../sys/ssclock.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/sleep.h
+ ../h/lock.h ../h/sleep.h
 stacktrace.o: ../sys/stacktrace.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/stdio.h
 suspend.o: ../sys/suspend.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/stdio.h
+ ../h/lock.h ../h/stdio.h
 unsleep.o: ../sys/unsleep.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/sleep.h ../h/stdio.h
+ ../h/lock.h ../h/sleep.h ../h/stdio.h
 userret.o: ../sys/userret.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h
 wait.o: ../sys/wait.c /usr/include/stdc-predef.h ../h/conf.h \
- ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h ../h/sem.h \
- ../h/stdio.h
+ ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
+ ../h/lock.h ../h/sem.h ../h/stdio.h
 wakeup.o: ../sys/wakeup.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/proc.h ../h/q.h \
- ../h/sleep.h
+ ../h/lock.h ../h/sleep.h
 write.o: ../sys/write.c /usr/include/stdc-predef.h ../h/conf.h \
  ../h/kernel.h ../h/systypes.h ../h/mem.h ../h/io.h
 xdone.o: ../sys/xdone.c /usr/include/stdc-predef.h ../h/kernel.h \

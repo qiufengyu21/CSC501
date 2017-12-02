@@ -31,7 +31,7 @@ int ldelete(int ldes)
         	}
 
         lptr->lstate = LFREE;
-        if(nonempty(lptr->lqhead)) 
+        if(q[lptr->lqhead].qnext < NPROC)
 			{
             while( (pid=getfirst(lptr->lqhead)) != EMPTY)
                 {

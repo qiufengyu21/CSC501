@@ -2,7 +2,7 @@
 
 #ifndef _QUEUE_H_
 #define _QUEUE_H_
-
+#include <lock.h>
 /* q structure declarations, constants, and inline procedures		*/
 
 #ifndef	NQENT
